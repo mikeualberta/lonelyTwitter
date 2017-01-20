@@ -1,5 +1,6 @@
 package ca.ualberta.cs.lonelytwitter;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import static android.R.id.message;
@@ -12,6 +13,7 @@ public abstract class Tweet implements Tweetable{
     /* By adding abstract we are saying that a tweet has to be a normal tweet or an important Tweet*/
     private Date date;
     private String message;
+    private ArrayList<Mood> moodList;
 
     public Tweet(String message){
         /* This is a  constructor without any return type */
@@ -50,10 +52,7 @@ public abstract class Tweet implements Tweetable{
         this.message = message;
     }
 
-    public abstract Boolean isImportant(){
-
-
-    }
+    public abstract Boolean isImportant();
 
 
 }

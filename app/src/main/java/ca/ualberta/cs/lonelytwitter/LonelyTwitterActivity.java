@@ -40,6 +40,9 @@ public class LonelyTwitterActivity extends Activity {
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
 
+				/*Mood mood = new HappyMood("Sad");
+				Mood happyMood = new SadMood("Happy");*/
+
 				Tweet tweet = new ImportantTweet("test string"); /* Creating new instance of tweet */
 				Tweet normalTweet = new NormalTweet("test string");
 
@@ -58,6 +61,10 @@ public class LonelyTwitterActivity extends Activity {
 				ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
 				tweetList.add(tweet);
 				tweetList.add(normalTweet);
+
+				/*ArrayList<Mood> moodList = new ArrayList<Mood>();
+				moodList.add(mood);
+				moodList.add(happyMood);*/
 
 				saveInFile(text, new Date(System.currentTimeMillis()));
 				finish();
