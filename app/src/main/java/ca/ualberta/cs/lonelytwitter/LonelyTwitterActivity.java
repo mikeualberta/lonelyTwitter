@@ -39,6 +39,26 @@ public class LonelyTwitterActivity extends Activity {
 			public void onClick(View v) {
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
+
+				Tweet tweet = new ImportantTweet("test string"); /* Creating new instance of tweet */
+				Tweet normalTweet = new NormalTweet("test string");
+
+				/* Need try and catch block to account for the exception */
+				try{
+					if (tweet.isImportant())
+						tweet.setMessage("better string");
+					/* Private attribute cannot be accessed directly so you have to use a setter */
+				}catch(Exception e){
+					throw new RuntimeException(); /* Used when you don't know exactly the best solution */
+
+				}
+				String string = tweet.getMessage();
+
+
+				ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
+				tweetList.add(tweet);
+				tweetList.add(normalTweet);
+
 				saveInFile(text, new Date(System.currentTimeMillis()));
 				finish();
 
