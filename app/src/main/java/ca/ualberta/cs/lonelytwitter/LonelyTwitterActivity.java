@@ -13,9 +13,11 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +32,8 @@ import com.google.gson.reflect.TypeToken;
 
 public class LonelyTwitterActivity extends Activity {
 
+	private LonelyTwitterActivity activity = this; // reference back to lonelyTwitterActivity class
+
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
@@ -37,6 +41,10 @@ public class LonelyTwitterActivity extends Activity {
 	private ArrayList<Tweet> tweetList;
 	private ArrayAdapter<Tweet> adapter;
 
+
+	public ListView getOldTweetsList(){
+		return oldTweetsList;
+	}
 
 
 	/**
@@ -50,6 +58,15 @@ public class LonelyTwitterActivity extends Activity {
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.save);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
+
+		oldTweetsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				Intent intent = new Intent(activity, EditTweetActivity.class);
+				Tweet editTweet = (Tweet) oldTweetsList.getAdapter().getItem(i);
+				intent.putExtra("MyTweet", editTweet.getMessage());
+				startActivity(intent);
+			}
+		});
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
@@ -71,7 +88,6 @@ public class LonelyTwitterActivity extends Activity {
 		});
 
 
-		/* NEW STUFF*/
 		Button clearButton = (Button) findViewById(R.id.clear);
 
 
@@ -82,18 +98,17 @@ public class LonelyTwitterActivity extends Activity {
 //				String text = bodyText.getText().toString();
 				tweetList.clear();
 
-//				Tweet tweet = new NormalTweet(text);
-//
-//				tweetList.add(tweet);
-
+				deleteFile("file.sav");
 				adapter.notifyDataSetChanged();
 
-				saveInFile();
+//				Method I used before. deleteFile thing is what was used in the lab
+//				adapter.notifyDataSetChanged();
+//
+//				saveInFile();
 
 			}
 		});
 
-		/* End of NEW STUFF */
 
 	}
 
